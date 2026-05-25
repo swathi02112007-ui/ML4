@@ -43,9 +43,8 @@ Print actual vs predicted values for better understanding.
 
 ## Program:
 ```
-/*
-Program to implement the multivariate linear regression model for predicting the price of the house and number of occupants in the house with SGD regressor.
 
+<<<<<<< HEAD
 # Ex:No 4
 #Manual Implementation using Numpy
 import pandas as pd
@@ -98,15 +97,20 @@ plt.show()
 Developed by: Swathi P N
 RegisterNumber:  212225230279
 */
+=======
+>>>>>>> b154c0b608681a73f589a0fed41344b8173e20a5
 ```
 
 ## Output:
 
-![alt text](ml4.1.png)
 
+<<<<<<< HEAD
 ![alt text](ml4.2.png)
 
 ![alt text](ml.4.3.png)
+=======
+
+>>>>>>> b154c0b608681a73f589a0fed41344b8173e20a5
 
 ## Result:
 Thus the program to implement the multivariate linear regression model for predicting the price of the house and number of occupants in the house with SGD regressor is written and verified using python programming.
