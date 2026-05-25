@@ -48,67 +48,52 @@ Program to implement the multivariate linear regression model for predicting the
 
 # Ex:No 4
 #Manual Implementation using Numpy
-import numpy as np
-
-# ------------------------------
-# Step 1: Sample dataset
-# ------------------------------
-# Features: [Hours Studied, Attendance, Previous Marks]
-# Features and target
-X = np.array([
-    [2, 80, 50],
-    [3, 60, 40],
-    [5, 90, 70],
-    [7, 85, 80],
-    [9, 95, 90]
-])
-# Target: Marks Scored
-y = np.array([50, 45, 70, 80, 95])
-
-#Using scikit-learn SGDRegressor
-from sklearn.model_selection import train_test_split
+import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.linear_model import SGDRegressor
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import r2_score, mean_squared_error
+from sklearn.multioutput import MultiOutputRegressor
 
-# Features and target
-X = np.array([
-    [2, 80, 50],
-    [3, 60, 40],
-    [5, 90, 70],
-    [7, 85, 80],
-    [9, 95, 90]
-])
-y = np.array([50, 45, 70, 80, 95])
+data = {
+    'Size': [1000, 1200, 1500, 1800, 2000],
+    'Bedrooms': [2, 2, 3, 3, 4],
+    'Price': [300000, 350000, 400000, 450000, 500000],
+    'Occupants': [2, 3, 4, 5, 6]
+}
 
-# Split of Dataset
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.25, random_state=42
-)
+df = pd.DataFrame(data)
 
-# Feature scaling
-scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
+X = df[['Size', 'Bedrooms']]
 
-# Create SGD Regressor
-sgd_reg = SGDRegressor(max_iter=1000, learning_rate='invscaling', eta0=0.01, random_state=42)
-sgd_reg.fit(X_train, y_train)
+y = df[['Price', 'Occupants']]
 
-# Predictions
-y_pred = sgd_reg.predict(X_test)
+model = MultiOutputRegressor(SGDRegressor())
 
-# Evaluation
-print("R2 Score:", r2_score(y_test, y_pred))
-print("\nMSE:", mean_squared_error(y_test, y_pred))
+model.fit(X, y)
 
-# Coefficients and intercept
-print("\nWeights (coefficients):", sgd_reg.coef_)
-print("\nIntercept:", sgd_reg.intercept_)
+prediction = model.predict([[1600, 3]])
 
-# Predict all values
-all_pred = sgd_reg.predict(scaler.transform(X))
-print("\nPredicted values:", all_pred)
+print("Predicted Price:", prediction[0][0])
+print("Predicted Occupants:", prediction[0][1])
+
+plt.scatter(df['Size'], df['Price'])
+
+plt.plot(df['Size'], model.predict(X)[:,0])
+
+plt.xlabel("House Size")
+plt.ylabel("House Price")
+plt.title("House Price Prediction")
+
+plt.show()
+
+plt.scatter(df['Size'], df['Occupants'])
+
+plt.plot(df['Size'], model.predict(X)[:,1])
+
+plt.xlabel("House Size")
+plt.ylabel("Occupants")
+plt.title("Occupants Prediction")
+
+plt.show()
 
 Developed by: Swathi P N
 RegisterNumber:  212225230279
@@ -121,8 +106,7 @@ RegisterNumber:  212225230279
 
 ![alt text](ml4.2.png)
 
-![alt text](<ml4.3 (2).png>)
-
+![alt text](ml.4.3.png)
 
 ## Result:
 Thus the program to implement the multivariate linear regression model for predicting the price of the house and number of occupants in the house with SGD regressor is written and verified using python programming.
